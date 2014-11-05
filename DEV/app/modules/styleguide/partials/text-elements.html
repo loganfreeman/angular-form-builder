@@ -1,0 +1,31 @@
+
+
+<h1 id="monospace">Monospace / Preformatted</h1>
+<p>Code block wrapped in "pre" and "code" tags</p>
+<pre>
+	<code>
+		body{
+
+			background:$APPlight;
+			color:$APPdark;
+			font-family:$font1;
+			overflow:hidden;
+
+			footer{
+
+				height:0;
+				background-color:lighten($APPdark,10%);
+				@include fitParent("",auto,0,0,0);
+
+				&.show{
+					height: $footerHeight;
+				}
+			}
+		}
+	</code>
+</pre>
+<p>Monospace Text wrapped in "pre" tags</p>
+<pre><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl.</p></pre>
+
+<hr />
+

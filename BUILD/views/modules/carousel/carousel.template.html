@@ -1,0 +1,15 @@
+
+
+<div class="carousel">
+	
+	<div class="slide" ng-class="{current:$index == currentSlide}" ng-repeat="slide in slides">
+		{{slide.title}}
+	</div>
+
+	<ul class="bullets" ng-if="config.bullets">
+		<li ng-repeat="slide in slides">
+			<a href="javascript:;" ng-click="currentSlide = $index">{{$index}}</a>
+		</li>
+	</ul>
+
+</div>

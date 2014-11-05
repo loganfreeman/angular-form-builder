@@ -1,0 +1,162 @@
+
+.panel{
+
+	margin-bottom:1.2em;
+
+	@if $theme-style == "dark" {
+		
+		background-color: lighten($theme-bg-colour,2%);
+		border: 1px solid lighten($theme-bg-colour, 8%);
+	}
+
+	@if $theme-style == "light" {
+		
+		background-color: lighten($theme-bg-colour,2%);
+		border: 1px solid darken($theme-bg-colour, 8%);
+	}
+
+	overflow:hidden;
+	@include box-shadow(0 5px 10px rgba(0,0,0,0.15));
+	@include boxSizing(0);
+
+	&.padded{
+
+		padding:30px;
+	}
+
+	header{
+
+		padding:0.6em 1.2em;
+
+		@if $theme-style == "dark" {
+		
+			background-color: lighten($theme-bg-colour,5%);
+			border-bottom: 1px solid lighten($theme-bg-colour, 8%);
+		}
+
+		@if $theme-style == "lighten" {
+		
+			background-color: darken($theme-bg-colour,5%);
+			border-bottom: 1px solid darken($theme-bg-colour, 8%);
+		}
+
+		h1,h2,h3,h4,h5,h6,p{
+			margin-bottom:0;
+		}
+
+	}
+
+	p, .panel-content{
+
+		margin: 0.6em 1.2em;
+	}
+
+	footer{
+
+		padding:0.6em 1.2em;
+		font-size: 0.7em;
+
+		@if $theme-style == "dark" {
+		
+			border-top: 1px solid lighten($theme-bg-colour, 5%);
+		}
+
+		@if $theme-style == "lighten" {
+		
+			border-top: 1px solid darken($theme-bg-colour, 5%);
+		}
+	}
+
+	@media screen and (max-width:$small-screens){
+		font-size:1.4em;
+
+		p{
+			font-size: 0.8em;
+		}
+	}
+}
+
+.panel-list{
+
+	margin-bottom:1.2em;
+	@include border-radius($fmRounding);
+	@include box-shadow(0 5px 10px rgba(0,0,0,0.15));
+
+	li{
+
+		margin-top:-1px;
+		overflow: hidden;
+		@include box-shadow(inset 0 -1px 0 darken($theme-bg-colour,1%));
+
+		@if $theme-style == "dark" {
+		
+			background-color: lighten($theme-bg-colour,2%);
+			border: 1px solid lighten($theme-bg-colour, 5%);
+		}
+
+		@if $theme-style == "light" {
+		
+			background-color: darken($theme-bg-colour,2%);
+			border: 1px solid darken($theme-bg-colour, 5%);
+		}
+
+		a{
+			display: block;
+			padding:0.6em 1.2em;
+			font-size: 0.8em;
+
+			&:hover{
+
+				text-decoration:none;
+
+				@if $theme-style == "dark" {
+				
+					background-color: lighten($theme-bg-colour,5%);
+					color: lighten($theme-text-colour,25%);
+				}
+
+				@if $theme-style == "light" {
+				
+					background-color: darken($theme-bg-colour,5%);
+					color: darken($theme-text-colour,25%);
+				}
+			}
+		}
+
+		&.header{
+
+			padding:0.6em 1.2em 0 1.2em;
+			position: relative;
+			z-index: 10;
+
+			@if $theme-style == "dark" {
+		
+				background-color: lighten($theme-bg-colour,5%);
+				border-bottom-color: lighten($theme-bg-colour, 8%);
+			}
+
+			@if $theme-style == "lighten" {
+			
+				background-color: darken($theme-bg-colour,5%);
+				border-bottom-color: darken($theme-bg-colour, 8%);
+			}
+		}
+
+		&:first-child{
+
+			@include border-radius($fmRounding $fmRounding 0 0);
+		}
+
+		&:last-child{
+
+			@include border-radius(0 0 $fmRounding $fmRounding);
+		}
+
+	}
+
+	@media screen and (max-width:$small-screens){
+		font-size:1.4em;
+	}
+}
+
+	

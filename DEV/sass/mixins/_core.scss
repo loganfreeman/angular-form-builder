@@ -1,0 +1,101 @@
+// -----------------------------------------
+// Core common mixins
+// -----------------------------------------
+
+@mixin core($config){
+
+	$stack       : map-get($config,stack);
+	$container   : map-get($config,container);
+	$rounded     : map-get($config,rounded);
+	$border-box  : map-get($config,borderBox);
+	$transitions : map-get($config,transitions);
+	$fitParent   : map-get($config,fitParent);
+	$centre      : map-get($config,centre);
+	$fadeIn      : map-get($config,fadeIn);
+
+	/* =========================================*/
+	/* CORE GLOBALS                             */
+	/* =========================================*/
+
+	@if $container {
+
+		.container{
+
+			margin:0 auto;
+			max-width:$container;
+		}
+	}
+
+	@if $stack {
+
+		.stack{
+			@include stack;
+		}
+	}
+
+	@if $rounded{
+
+		@for $i from 1 through length($rounded) {
+			
+			$ammount : nth($rounded,$i);
+
+			.rounded-#{$ammount}{
+				@include border-radius($ammount);
+			}
+
+		}
+
+	}
+
+	@if $border-box {
+
+		.border-box{
+			@include box-sizing(border-box);
+		}
+	}
+
+	@if $transitions{
+
+		@for $i from 1 through length($transitions) {
+			
+			$transition : nth($transitions,$i);
+
+			.transition-#{$i}{
+				@include single-transition(all,$transition,ease)
+			}
+
+		}
+	}
+
+	@if $fitParent{
+
+		.fitParent{
+			@include fitParent;
+		}
+	}
+
+	@if $centre{
+
+		.centre{
+			@include centre;
+		}
+
+		.centre-x{
+			@include centre(x);
+		}
+
+		.centre-y{
+			@include centre(y);
+		}
+	}
+
+	@if $fadeIn{
+
+		.fadeIn{
+			@include animation(fadeIn,ease,0.5s,5,0.2s)
+		}
+	}
+
+	/* =========================================*/
+}
+

@@ -1,0 +1,108 @@
+// -----------------------------------------
+// Theme mixins
+// -----------------------------------------
+
+@mixin colours($name,$colour,$darken,$lighten){
+
+	.text-#{$name} {
+
+		color:$colour;
+
+		@if $darken {
+
+			@for $i from 1 through length($darken) {
+
+				$shade : nth($darken,$i);
+
+				&.darken-#{$shade}{
+					color: darken($colour,$shade);
+				}
+			}
+		}
+
+		@if $lighten {
+			
+			@for $i from 1 through length($lighten) {
+
+				$shade : nth($lighten,$i);
+
+				&.lighten-#{$shade}{
+					color: lighten($colour,$shade);
+				}
+			}
+		}
+	}
+
+	.bg-#{$name} {
+
+		background-color:$colour;
+
+		@if $darken {
+
+			@for $i from 1 through length($darken) {
+
+				$shade : nth($darken,$i);
+
+				&.darken-#{$shade}{
+					background-color: darken($colour,$shade);
+				}
+			}
+		}
+
+		@if $lighten {
+			
+			@for $i from 1 through length($lighten) {
+
+				$shade : nth($lighten,$i);
+
+				&.lighten-#{$shade}{
+					background-color: lighten($colour,$shade);
+				}
+			}
+		}
+	}
+}
+
+
+@mixin theme($config){
+
+	/* =========================================*/
+	/* THEME STYLES                             */
+	/* =========================================*/
+
+	$themeName : map-get($config,themeName);
+	$style     : map-get($config,themeStyle);
+	$colours   : map-get($config,colours);
+	$darken    : map-get($config,darken);
+	$lighten   : map-get($config,lighten);
+
+	@if $style {
+
+		@if $style == "dark" {
+
+			body.#{$themeName}{
+
+				background:$col-dark;
+				color:$col-light;
+			}
+		}
+
+		@if $style == "light" {
+
+			body.#{$themeName}{
+				
+				background:$col-light;
+				color:$col-dark;
+			}
+		}
+	} 
+
+	.#{$themeName}{	
+
+		@each $name, $colour in $colours {
+		  	@include colours($name, $colour,$darken,$lighten);
+		}
+	}
+
+	/* =========================================*/
+}

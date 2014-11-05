@@ -1,0 +1,42 @@
+
+
+//Adds a gradient text effect - WEBKIT ONLY!!!
+@mixin gradientText($top:#fcfcfc,$bottom:#828282){
+	color:$top;
+	background: -webkit-linear-gradient($top,$bottom);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;	
+}
+
+//For css3 text columns supported by IE10+
+@mixin column-text($cols:3,$gap:40px,$breakpoint:$mobile-screens,$rules:true){
+
+    $vendors : "-webkit-" "-moz-" "";
+
+    .columns{
+
+        @each $vendor in $vendors {
+
+            #{$vendor}column-count : $cols;
+            #{$vendor}column-gap : $gap;
+            @if $rules {
+                #{$vendor}column-rule: 1px outset $theme-subtle-light;
+            }
+        }
+
+        @media screen and (max-width:$breakpoint){
+
+            @each $vendor in $vendors {
+
+                #{$vendor}column-count : 1;
+                #{$vendor}column-gap : 0;
+                @if $rules {
+                    #{$vendor}column-rule:none;
+                }
+
+
+            }
+        }
+
+    }
+}

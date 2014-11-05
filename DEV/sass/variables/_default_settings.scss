@@ -1,0 +1,21 @@
+// DIMENSIONS
+// ==============================================
+	$containerWidth : 1000px;
+	$baseRounding   : 10px;
+
+
+
+// FORM SETTINGS
+// ==============================================
+	$inputs       : "text" "email" "password" "url" "tel" "search" !default;
+	$fmPadding    : 20px!default;
+	$fontFace     : 0.8em $primary-font !default;
+	$fmRounding   : 10px;
+
+	// Settings for modern checks 
+	$modernChecks : true;
+	$dialColour   : $theme-primary-col;
+	$check-width  : 55px;
+	$check-height : 20px;
+	$rounding     : 5px;
+	$inset        : 2px;

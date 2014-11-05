@@ -1,0 +1,244 @@
+@mixin form-theme($config){
+
+	$inputs        : map-get($config, inputs);
+	$fontFace      : map-get($config, fontFace);
+	$dimensions    : map-get($config, dimensions);
+	$modern-checks : map-get($config, modern-checks);
+
+		$fmPadding  : map-get($dimensions,fmPadding);
+		$fmRounding : map-get($dimensions,fmRounding);
+
+	// Over-rides...
+	$inputs     : "text" "email" "password" "url" "tel" "search" !default;
+	$fmPadding  : 20px!default;
+	$fontFace   : 0.8em $primary-font !default;
+
+	textarea{
+
+		
+		font:$fontFace;
+		width:100%;
+		max-width:100%;
+		margin:0;
+		outline: none;
+		padding: $fmPadding;
+		@include single-transition(all,0.25s,ease);
+		@include box-sizing(border-box);
+
+		@if $theme-style == "dark" {
+			
+			background-color: darken($theme-bg-colour,3%);
+			border: 1px solid lighten($theme-bg-colour,3%);
+			color : darken($theme-text-colour,5%);
+		
+			&:hover{
+
+				background-color: darken($theme-bg-colour,5%);
+				border: 1px solid lighten($theme-bg-colour,5%);
+				color : $theme-text-colour;
+
+			}
+
+			&:focus{
+
+				background-color: darken($theme-bg-colour,5%);
+				border: 1px solid lighten($theme-bg-colour,10%);
+				color : $theme-primary-col;
+			}
+
+		}
+
+		@if $theme-style == "light" {
+			
+			background-color: lighten($theme-bg-colour,3%);
+			border: 1px solid darken($theme-bg-colour,3%);
+			color : lighten($theme-text-colour,5%);
+		
+			&:hover{
+
+				background-color: lighten($theme-bg-colour,5%);
+				border: 1px solid darken($theme-bg-colour,5%);
+				color : $theme-text-colour;
+
+			}
+
+			&:focus{
+
+				background-color: lighten($theme-bg-colour,5%);
+				border: 1px solid darken($theme-bg-colour,10%);
+				color : $theme-primary-col;
+			}
+
+		}
+
+		@if $fmRounding {
+
+			@include border-radius($fmRounding);
+		}
+	}
+
+	@if $inputs {
+
+		input{
+		
+			@each $input in $inputs {
+				&[type=#{$input}]{
+					@extend textarea;
+				}
+			}
+
+		}
+
+	}
+
+	@if $modern-checks {
+
+		//Styling for a modern iOS inspired checkbox
+		
+
+		$dialColour   : map-get($modern-checks,dialColour);
+		$check-width  : map-get($modern-checks,mcWidth);
+		$check-height : map-get($modern-checks,mcHeight);
+		$rounding     : map-get($modern-checks,rounding);
+		$inset        : map-get($modern-checks,insetAmt);
+
+		$dialColour   : $theme-primary-col !default;
+		$check-width  : 50px !default;
+		$check-height : 20px !default;
+		$rounding     : 5px !default;
+		$inset        : -1px !default;
+
+		.modern-check{
+
+			display:block;
+			height:$check-height;
+			width:$check-width;
+			position:relative;
+
+			@if $theme-style == "dark" {
+
+				background:darken($theme-bg-colour,3%);
+				border:1px solid lighten($theme-bg-colour,3%);
+			}
+
+			@if $theme-style == "light" {
+				
+				background:lighten($theme-bg-colour,3%);
+				border:1px solid darken($theme-bg-colour,3%);
+			}
+			
+			margin-bottom:10px;
+			@include single-transition(all,0.25s,ease);
+			@include border-radius($rounding);
+
+			input[type="checkbox"]{
+
+				opacity: 0;
+				display:block;
+				height:$check-height;
+				width:$check-width;
+				position:relative;
+				z-index: 10;
+
+				& + span{
+
+					@if $theme-style == "dark" {
+
+						background-color:lighten($theme-bg-colour,10%);
+						border:1px solid lighten($theme-bg-colour,15%);
+					}
+
+					@if $theme-style == "light" {
+						
+						background-color:darken($theme-bg-colour,10%);
+						border:1px solid darken($theme-bg-colour,15%);
+					}
+
+					position: absolute;
+					width:$check-height;
+					top:$inset;
+					left:$inset;
+					bottom:$inset;
+					@include border-radius(($rounding - $inset) 0 0 ($rounding - $inset));
+					@include single-transition(all,0.25s,ease);
+
+					&:before{
+
+						position: absolute;
+						top:-1px;
+						left: 0;
+						bottom:-1px;
+						@if $theme-style == "dark" {
+
+							background-color:darken($dialColour, 55%);
+							border: 1px solid darken($dialColour, 30%);
+						}
+
+						@if $theme-style == "light" {
+
+							background-color:lighten($dialColour, 55%);
+							border: 1px solid lighten($dialColour, 30%);
+						}
+						width:0;
+						opacity: 0;
+						@include single-transition(all,0.25s,ease);
+						@include border-radius($rounding 0 0 $rounding);
+						@include afterBefore;
+					}
+				}
+
+				&:checked + span{
+
+					background-color:$dialColour;
+
+					@if $theme-style == "dark" {
+						border:1px solid lighten($dialColour,3%);
+					}
+
+					@if $theme-style == "light" {
+						border:1px solid darken($dialColour,3%);
+					}
+
+					left: $check-width - $check-height - ($inset + 2px);
+					@include border-radius(0 ($rounding - $inset) ($rounding - $inset) 0);
+
+					&:before {
+						
+						opacity: 1;
+						left: -($check-width - $check-height - ($inset + 1px));
+						width: $check-width - $check-height - ($inset + 4px);
+					}
+				}
+			}
+
+			&:hover{
+
+				@if $theme-style == "dark" {
+
+					background-color: darken($theme-bg-colour,5%);
+					border: 1px solid lighten($theme-bg-colour,5%);
+
+					input[type="checkbox"] + span{
+						
+						background-color:lighten($theme-bg-colour,15%);
+						border:1px solid lighten($theme-bg-colour,25%);
+					}
+
+				}
+
+				@if $theme-style == "light" {
+
+					background-color: lighten($theme-bg-colour,5%);
+					border: 1px solid darken($theme-bg-colour,5%);
+
+					input[type="checkbox"] + span{
+						
+						background-color:darken($theme-bg-colour,15%);
+						border:1px solid darken($theme-bg-colour,25%);
+					}
+
+				}
+			}
+		}
+	}
+}

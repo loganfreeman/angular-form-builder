@@ -1,0 +1,56 @@
+@mixin stack{
+	float:left;
+	width:100%;
+	clear:both;
+}
+
+@mixin fitParent($all:"", $top:"", $right:"", $bottom:"", $left:""){
+	position:absolute;
+	@if $all != ""{
+		top:$all;
+		right:$all;
+		bottom:$all;
+		left:$all;
+	} @else{
+		@if $top != ""{
+			top:$top;
+			} @else{
+			top:0;
+		}
+
+		@if $right != ""{
+			right:$right;
+			} @else{
+			right:0;
+		}
+
+		@if $bottom != ""{
+			bottom:$bottom;
+			} @else{
+			bottom:0;
+		}
+
+		@if $left != ""{
+			left:$left;
+			} @else{
+			left:0;
+		}
+	}	
+}
+
+@mixin centre($axis: "both"){
+	position:absolute;
+	@if $axis == "y"{
+		top:50%;
+		@include translateY(-50%);
+	}
+	@if $axis == "x"{
+		left:50%;
+		@include translateX(-50%);
+	}
+	@if $axis == "both"{
+		top:50%;
+		left:50%;
+		@include translate(-50%, -50%);
+	}	
+}

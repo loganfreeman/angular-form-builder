@@ -1,0 +1,126 @@
+@mixin afterBefore{
+	display:block;
+	content:"";
+}
+
+@mixin absolutly($distance:0,$axis1:top,$axis2:left){
+	position:absolute;
+	@if $axis1 == top{top:$distance}
+	@if $axis1 == right{right:$distance}
+	@if $axis1 == bottom{bottom:$distance}
+	@if $axis1 == left{left:$distance}
+	@if $axis2 == top{top:$distance}
+	@if $axis2 == right{right:$distance}
+	@if $axis2 == bottom{bottom:$distance}
+	@if $axis2 == left{left:$distance}
+}
+
+@mixin boxSizing($padding){
+	@include box-sizing(border-box);
+	padding:$padding;
+}
+
+
+@mixin scrollbar ($basecol : $col-dark){
+
+	overflow: auto ;
+
+	&::-webkit-scrollbar {
+	    width: 6px;
+	    padding:10px;
+	}
+	 
+	&::-webkit-scrollbar-track {
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	    background: lighten($basecol,20%);
+	    border-radius: 10px;
+	}
+	 
+	&::-webkit-scrollbar-thumb {
+	    border-radius: 10px;
+	    background: lighten($basecol,10%);
+	    border:1px solid darken($basecol,10%);
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+	}
+
+}
+
+@mixin circle($size:20px){
+
+	width:$size;
+	height:$size;
+	@include border-radius($size);
+}
+
+@mixin arrow($size:10px,$dir:"down",$colour:white,$angle:0.7){
+
+	width: 0; 
+	height: 0;
+
+	@if $dir == "up"{
+		border-left: $size*$angle solid transparent;
+		border-right: $size*$angle solid transparent;
+		border-bottom: $size solid $colour;
+	}
+
+	@if $dir == "down"{
+		border-left: $size*$angle solid transparent;
+		border-right: $size*$angle solid transparent;	
+		border-top: $size solid $colour;
+	}
+
+	@if $dir == "right"{
+		border-top: $size*$angle solid transparent;
+		border-bottom: $size*$angle solid transparent;	
+		border-left: $size solid $colour;
+	}
+
+	@if $dir == "left"{
+		border-top: $size*$angle solid transparent;
+		border-bottom: $size*$angle solid transparent;
+		border-right:$size solid $colour;
+	}
+}
+
+@mixin bevelDivider($col:grey,$side:"bottom",$size:1px){
+
+	$light : lighten($col,5%);
+	$dark  : darken($col,5%);
+
+	@if $side == "top" {
+		@include box-shadow(inset 0 $size 0 $light, 0 (-$size) 0 $dark);
+		&:first-of-type{
+			@include box-shadow(none);
+		}
+	}
+
+	@if $side == "bottom" {
+		@include box-shadow(inset 0 (-$size) 0 $dark, 0 $size 0 $light);
+		&:last-of-type{
+			@include box-shadow(none);
+		}
+	}
+
+	@if $side == "left" {
+		@include box-shadow(inset  $size 0 0 $light, (-$size) 0 0 $dark);
+		&:first-of-type{
+			@include box-shadow(none);
+		}
+	}
+
+	@if $side == "right" {
+		@include box-shadow(inset (-$size) 0 0 $dark, $size 0 0 $light);
+		&:last-of-type{
+			@include box-shadow(none);
+		}
+	}
+}
+
+@mixin noSelect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

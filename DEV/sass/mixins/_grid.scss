@@ -1,0 +1,175 @@
+// -----------------------------------------
+// Grid mixins
+// -----------------------------------------
+
+@mixin grid-col($ammount:3,$col-count:12,$gutter-width:2%){
+
+	$gutter-total : ($col-count - 1) * $gutter-width;
+	$remainder  : 100% - $gutter-total;
+	$fill : ($ammount - 1)*$gutter-width;
+	$unit : $remainder / $col-count;
+
+	float:left;
+	position:relative;
+	width:$unit*$ammount+$fill;
+	margin-right:$gutter-width;
+}
+
+@mixin shift($dir:"push",$ammount:3,$col-count:12,$gutter-width:2%){
+
+	$gutter-total : ($col-count - 1) * $gutter-width;
+	$remainder  : 100% - $gutter-total;
+	$fill : ($ammount - 1)*$gutter-width;
+	$unit : $remainder / $col-count;
+
+	@if $dir == "push" {
+		margin-left:$unit*$ammount+$fill+$gutter-width; 
+	}
+
+	@if $dir == "pull" {
+		margin-right:$unit*$ammount+$fill+$gutter-width; 
+	}
+}
+
+@mixin grid-push($ammount:3,$col-count:12,$gutter-width:2%){
+
+	$gutter-total : ($col-count - 1) * $gutter-width;
+	$remainder  : 100% - $gutter-total;
+	$fill : ($ammount - 1)*$gutter-width;
+	$unit : $remainder / $col-count;
+
+	margin-left:$unit*$ammount+$fill+$gutter-width; 
+
+}
+
+@mixin grid-pull($ammount:3,$col-count:12,$gutter-width:2%){
+
+	$gutter-total : ($col-count - 1) * $gutter-width;
+	$remainder  : 100% - $gutter-total;
+	$fill : ($ammount - 1)*$gutter-width;
+	$unit : $remainder / $col-count;
+
+	margin-right:$unit*$ammount+$fill+$gutter-width; 
+
+}
+
+@mixin grid ($col-count:12,$gutter-width:2%,$stack-point:550px,$shift:true,$dividers:false){
+
+	/* =========================================*/
+	/* GRID STYLES                              */
+	/* =========================================*/
+
+	.grid-row {
+
+		min-height: 1%;
+
+		&:after {
+	        content: "";
+	        display: table;
+	        clear: both;
+	    }
+	}
+
+	@for $i from 1 through $col-count{
+
+		.grid-#{$i}{
+			@include grid-col($i,$col-count,$gutter-width);
+
+			@if $dividers {
+
+				&.grid-divide-right:after{
+
+					position: absolute;
+					width:1px;
+					height:100%;
+					right:-($gutter-width*($col-count - $i));
+					top:0;
+					background-color:$theme-subtle-dark;
+					border-right:1px solid $theme-subtle-light;
+					@include afterBefore;
+
+				}
+
+				&.grid-divide-left:before{
+
+					position: absolute;
+					width:1px;
+					height:100%;
+					left:-($gutter-width*($col-count - $i));
+					top:0;
+					background-color:$theme-subtle-dark;
+					border-right:1px solid $theme-subtle-light;
+					@include afterBefore;
+
+				}
+
+			}
+
+		}
+
+		@if $shift {
+
+			.push-#{$i}{
+				@include shift("push",$i,$col-count,$gutter-width)
+			}
+
+			.pull-#{$i}{
+				@include shift("pull",$i,$col-count,$gutter-width)
+			}
+
+		}
+
+		// .grid-#{$i}:last-child{
+		// 	margin-right:0;
+		// }
+
+	}
+
+
+	// .grid-divide-right{
+
+	// 	&:after{
+
+	// 		position: absolute;
+	// 		width:1px;
+	// 		height:100%;
+	// 		right:-($gutter-width*4);
+	// 		top:0;
+	// 		background-color:$theme-subtle-dark;
+	// 		border-right:1px solid $theme-subtle-light;
+	// 		@include afterBefore;
+
+	// 	}
+	// }
+
+	[class*="grid"]:last-child{
+		margin-right:0;
+	}
+
+	@media screen and (max-width:$stack-point){
+
+		// @for $i from 1 through $col-count{
+
+		// 	.grid-#{$i}{
+		// 		margin-left: 0;
+		// 		margin-right: 0;
+		// 		width: 100%;
+		// 	}
+		// }
+		[class*="grid"]{
+			margin-left: 0;
+			margin-right: 0;
+			width: 100%;
+		}
+
+		@if $dividers {
+
+			.grid-divide-right:after, .grid-divide-left:before {
+				display: none!important;
+			}
+
+		}
+	}
+
+	/* =========================================*/
+}

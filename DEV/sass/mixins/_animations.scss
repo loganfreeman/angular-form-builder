@@ -1,0 +1,593 @@
+@mixin animation($name, $timingFunction:ease, $duration:1s,$stagger:"",$delay:"", $count:""){
+	-webkit-animation-name: $name;
+	animation-name: $name;	
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-timing-function:$timingFunction;
+	animation-timing-function:$timingFunction;
+	-webkit-animation-duration: $duration;
+	animation-duration: $duration;	
+	@if $count != ""{
+		-webkit-animation-iteration-count: $count;
+		animation-iteration-count: $count;
+	}
+	@if $stagger != ""{
+		@if $delay == ""{
+			$delay:0.1s;
+		}
+		@for $i from 1 through $stagger {
+		    &:nth-child(#{$i}) {
+		    	-webkit-animation-delay: $delay * $i;
+		        animation-delay: $delay * $i;
+		    }
+		}
+	} @else {
+		@if $delay != ""{
+			-webkit-animation-delay: $delay;
+			animation-delay: $delay;
+		}
+	}
+}
+
+
+@mixin keyframes($animationName) {
+    @-webkit-keyframes $animationName {
+        @content;
+    }
+    @-moz-keyframes $animationName {
+        @content;
+    }
+    @-o-keyframes $animationName {
+        @content;
+    }
+    @keyframes $animationName {
+        @content;
+    }
+}
+
+@mixin KFstops($vendor,$stops,$property,$vals,$opTrans){
+
+  @for $i from 1 through length($stops){
+
+      $stop: nth($stops, $i);
+      $val : nth($vals, $i);
+
+
+      @if $vendor == -webkit- {
+
+        @if $opTrans == fadeIn {
+
+          @if $i == 1{
+            @if $property == scale{
+
+              #{$stop}{-webkit-transform:scale($val);opacity:0} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-webkit-transform:skew($val);opacity:0}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-webkit-transform:rotate($val);opacity:0}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-webkit-transform:translateX($val);opacity:0}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-webkit-transform:translateY($val);opacity:0}
+            }
+          }
+
+          @if $i > 1 and $i < length($stops){
+
+            @if $property == scale{
+              #{$stop}{-webkit-transform:scale($val);} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-webkit-transform:skew($val);}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-webkit-transform:rotate($val);}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-webkit-transform:translateX($val);}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-webkit-transform:translateY($val);}
+            }
+          }
+
+          @if $i == length($stops){
+
+            @if $property == scale{
+              #{$stop}{-webkit-transform:scale($val);opacity:1} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-webkit-transform:skew($val);opacity:1}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-webkit-transform:rotate($val);opacity:1}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-webkit-transform:translateX($val);opacity:1}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-webkit-transform:translateY($val);opacity:1}
+            } 
+          }
+
+        }
+
+        @else if $opTrans == fadeOut {
+
+          @if $i == 1{
+            @if $property == scale{
+
+              #{$stop}{-webkit-transform:scale($val);opacity:1} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-webkit-transform:skew($val);opacity:1}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-webkit-transform:rotate($val);opacity:1}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-webkit-transform:translateX($val);opacity:1}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-webkit-transform:translateY($val);opacity:1}
+            }
+          }
+
+          @if $i > 1 and $i < length($stops){
+
+            @if $property == scale{
+              #{$stop}{-webkit-transform:scale($val);} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-webkit-transform:skew($val);}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-webkit-transform:rotate($val);}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-webkit-transform:translateX($val);}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-webkit-transform:translateY($val);}
+            }
+          }
+
+          @if $i == length($stops){
+
+            @if $property == scale{
+              #{$stop}{-webkit-transform:scale($val);opacity:0} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-webkit-transform:skew($val);opacity:0}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-webkit-transform:rotate($val);opacity:0}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-webkit-transform:translateX($val);opacity:0}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-webkit-transform:translateY($val);opacity:0}
+            } 
+          }
+
+        } 
+
+        @else {     
+
+          @if $property == scale{
+            #{$stop}{-webkit-transform:scale($val);} 
+          }
+
+          @if $property == skew{
+            #{$stop}{-webkit-transform:skew($val);}
+          }
+
+          @if $property == rotate{
+            #{$stop}{-webkit-transform:rotate($val);}
+          }
+
+          @if $property == translateX{
+            #{$stop}{-webkit-transform:translateX($val);}
+          }
+
+          @if $property == translateY{
+            #{$stop}{-webkit-transform:translateY($val);}
+          }
+
+        }
+
+      }
+
+      @if $vendor == -moz- {
+
+        @if $opTrans == fadeIn {
+
+          @if $i == 1{
+            @if $property == scale{
+
+              #{$stop}{-moz-transform:scale($val);opacity:0} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-moz-transform:skew($val);opacity:0}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-moz-transform:rotate($val);opacity:0}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-moz-transform:translateX($val);opacity:0}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-moz-transform:translateY($val);opacity:0}
+            }
+          }
+
+          @if $i > 1 and $i < length($stops){
+
+            @if $property == scale{
+              #{$stop}{-moz-transform:scale($val);} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-moz-transform:skew($val);}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-moz-transform:rotate($val);}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-moz-transform:translateX($val);}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-moz-transform:translateY($val);}
+            }
+          }
+
+          @if $i == length($stops){
+
+            @if $property == scale{
+              #{$stop}{-moz-transform:scale($val);opacity:1} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-moz-transform:skew($val);opacity:1}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-moz-transform:rotate($val);opacity:1}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-moz-transform:translateX($val);opacity:1}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-moz-transform:translateY($val);opacity:1}
+            } 
+          }
+
+        }
+
+        @else if $opTrans == fadeOut {
+
+          @if $i == 1{
+            @if $property == scale{
+
+              #{$stop}{-moz-transform:scale($val);opacity:1} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-moz-transform:skew($val);opacity:1}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-moz-transform:rotate($val);opacity:1}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-moz-transform:translateX($val);opacity:1}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-moz-transform:translateY($val);opacity:1}
+            }
+          }
+
+          @if $i > 1 and $i < length($stops){
+
+            @if $property == scale{
+              #{$stop}{-moz-transform:scale($val);} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-moz-transform:skew($val);}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-moz-transform:rotate($val);}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-moz-transform:translateX($val);}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-moz-transform:translateY($val);}
+            }
+          }
+
+          @if $i == length($stops){
+
+            @if $property == scale{
+              #{$stop}{-moz-transform:scale($val);opacity:0} 
+            }
+
+            @if $property == skew{
+              #{$stop}{-moz-transform:skew($val);opacity:0}
+            }
+
+            @if $property == rotate{
+              #{$stop}{-moz-transform:rotate($val);opacity:0}
+            }
+
+            @if $property == translateX{
+              #{$stop}{-moz-transform:translateX($val);opacity:0}
+            }
+
+            @if $property == translateY{
+              #{$stop}{-moz-transform:translateY($val);opacity:0}
+            } 
+          }
+
+        } 
+
+        @else {     
+
+          @if $property == scale{
+            #{$stop}{-moz-transform:scale($val);} 
+          }
+
+          @if $property == skew{
+            #{$stop}{-moz-transform:skew($val);}
+          }
+
+          @if $property == rotate{
+            #{$stop}{-moz-transform:rotate($val);}
+          }
+
+          @if $property == translateX{
+            #{$stop}{-moz-transform:translateX($val);}
+          }
+
+          @if $property == translateY{
+            #{$stop}{-moz-transform:translateY($val);}
+          }
+
+        }
+      }
+
+
+      @if $vendor == "" {
+
+        @if $opTrans == fadeIn {
+
+          @if $i == 1{
+            @if $property == scale{
+
+              #{$stop}{transform:scale($val);opacity:0} 
+            }
+
+            @if $property == skew{
+              #{$stop}{transform:skew($val);opacity:0}
+            }
+
+            @if $property == rotate{
+              #{$stop}{transform:rotate($val);opacity:0}
+            }
+
+            @if $property == translateX{
+              #{$stop}{transform:translateX($val);opacity:0}
+            }
+
+            @if $property == translateY{
+              #{$stop}{transform:translateY($val);opacity:0}
+            }
+          }
+
+          @if $i > 1 and $i < length($stops){
+
+            @if $property == scale{
+              #{$stop}{transform:scale($val);} 
+            }
+
+            @if $property == skew{
+              #{$stop}{transform:skew($val);}
+            }
+
+            @if $property == rotate{
+              #{$stop}{transform:rotate($val);}
+            }
+
+            @if $property == translateX{
+              #{$stop}{transform:translateX($val);}
+            }
+
+            @if $property == translateY{
+              #{$stop}{transform:translateY($val);}
+            }
+          }
+
+          @if $i == length($stops){
+
+            @if $property == scale{
+              #{$stop}{transform:scale($val);opacity:1} 
+            }
+
+            @if $property == skew{
+              #{$stop}{transform:skew($val);opacity:1}
+            }
+
+            @if $property == rotate{
+              #{$stop}{transform:rotate($val);opacity:1}
+            }
+
+            @if $property == translateX{
+              #{$stop}{transform:translateX($val);opacity:1}
+            }
+
+            @if $property == translateY{
+              #{$stop}{transform:translateY($val);opacity:1}
+            } 
+          }
+
+        }
+
+        @else if $opTrans == fadeOut {
+
+          @if $i == 1{
+            @if $property == scale{
+
+              #{$stop}{transform:scale($val);opacity:1} 
+            }
+
+            @if $property == skew{
+              #{$stop}{transform:skew($val);opacity:1}
+            }
+
+            @if $property == rotate{
+              #{$stop}{transform:rotate($val);opacity:1}
+            }
+
+            @if $property == translateX{
+              #{$stop}{transform:translateX($val);opacity:1}
+            }
+
+            @if $property == translateY{
+              #{$stop}{transform:translateY($val);opacity:1}
+            }
+          }
+
+          @if $i > 1 and $i < length($stops){
+
+            @if $property == scale{
+              #{$stop}{transform:scale($val);} 
+            }
+
+            @if $property == skew{
+              #{$stop}{transform:skew($val);}
+            }
+
+            @if $property == rotate{
+              #{$stop}{transform:rotate($val);}
+            }
+
+            @if $property == translateX{
+              #{$stop}{transform:translateX($val);}
+            }
+
+            @if $property == translateY{
+              #{$stop}{transform:translateY($val);}
+            }
+          }
+
+          @if $i == length($stops){
+
+            @if $property == scale{
+              #{$stop}{transform:scale($val);opacity:0} 
+            }
+
+            @if $property == skew{
+              #{$stop}{transform:skew($val);opacity:0}
+            }
+
+            @if $property == rotate{
+              #{$stop}{transform:rotate($val);opacity:0}
+            }
+
+            @if $property == translateX{
+              #{$stop}{transform:translateX($val);opacity:0}
+            }
+
+            @if $property == translateY{
+              #{$stop}{transform:translateY($val);opacity:0}
+            } 
+          }
+
+        } 
+
+        @else {     
+
+          @if $property == scale{
+            #{$stop}{transform:scale($val);} 
+          }
+
+          @if $property == skew{
+            #{$stop}{transform:skew($val);}
+          }
+
+          @if $property == rotate{
+            #{$stop}{transform:rotate($val);}
+          }
+
+          @if $property == translateX{
+            #{$stop}{transform:translateX($val);}
+          }
+
+          @if $property == translateY{
+            #{$stop}{transform:translateY($val);}
+          }
+
+        }
+
+      }
+
+    }
+}
+
+
+@mixin transKeyframes($animationName,$stops:"",$property:"",$vals:"",$opTrans:""){
+
+  @-webkit-keyframes $animationName {
+    @include KFstops(-webkit-,$stops,$property,$vals,$opTrans)
+    }
+    @-moz-keyframes $animationName {
+      @include KFstops(-moz-,$stops,$property,$vals,$opTrans)
+    }
+    @keyframes $animationName {
+      @include KFstops("",$stops,$property,$vals,$opTrans)
+    }
+}

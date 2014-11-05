@@ -1,0 +1,74 @@
+@import "compass/reset";
+
+body{
+
+	background:$theme-bg-colour;
+	color:$theme-text-colour;
+	font-size:1.3em;
+
+	@media screen and (max-width:$medium-screens){
+		font-size:1.1em;
+	}
+
+	@media screen and (max-width:$small-screens){
+		font-size:0.9em;
+	}
+
+}
+
+// ===============================================================
+// CORE STYLES config - see mixins/_core.scss for implementation
+
+	$core-config : (
+
+		container   : $containerWidth,                  // Creates a centralised .container class
+		stack       : true,                    // Creates a stackable element class
+		rounded     : 5px 10px 15px 20px,      // Loop to create rounded element classes
+		borderBox   : true,                    // Adds .border-box class with vendor prefixes
+		transitions : 0.25s 0.5s 0.75s 1s,     // Loop to create transition classes
+		centre      : true,                    // Adds css3 centring classes
+		fadeIn      : true                     // Adds satggering elements for the fadeIn animation
+	);
+
+	@include core($core-config);
+
+// ===============================================================
+
+
+
+.bevelStack{
+
+	@include boxSizing(20px);
+	@include bevelDivider($theme-bg-colour,"bottom");
+}
+
+
+.grid-example{
+
+	background:#ddd;
+	padding:20px 0;
+	min-height:30px;
+	margin-bottom:20px;
+	position:relative;
+
+	span{
+
+		font-size: 0.8em;
+	}
+}
+
+
+@include grid(12,2%,$small-screens,true,true);
+
+
+
+
+
+
+
+
+
+
+
+
+

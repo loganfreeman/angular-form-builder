@@ -1,0 +1,38 @@
+/*
+##############################################################
+EXAMPLES OF DEFINING KEYFRAMES USING MIXINS -----
+##############################################################
+
+		//FADE IN -----------------------------------------------
+
+		@include transKeyframes(fadeIn,0% 100%,scale,0.8 1,fadeIn);
+
+		//FADE OUT -----------------------------------------------
+
+		@include transKeyframes(fadeOut,0% 100%,scale,1 0.8,fadeOut);
+
+		//FLICKER IN -----------------------------------------------
+
+		@include keyframes (flickerIn) {
+		  0% {   opacity:0;}
+		  5% {   opacity:0.5;}
+		  10% { opacity:0.3;}
+		  100% { opacity:1;}
+		}
+
+
+		//WIBBLE ---------------------------------------------------
+
+		$wibbleAmount: 2px;
+
+		@include keyframes(wibble) {
+		  0%   {margin-top:0}
+		  33%  {margin-top:$wibbleAmount}
+		  66%  {margin-top:-$wibbleAmount}
+		  100% {margin-top:0}
+		}
+
+*/
+
+
+@include transKeyframes(fadeIn,0% 100%,scale,0.8 1,fadeIn);
